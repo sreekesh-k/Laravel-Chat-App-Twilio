@@ -27,7 +27,7 @@
             const messageInput = this.querySelector('input[name="message"]');
             const message = messageInput.value;
 
-            fetch("/send-message", {
+            fetch("/chat-app/send-message", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
