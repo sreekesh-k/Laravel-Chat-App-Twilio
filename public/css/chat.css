@@ -1,0 +1,72 @@
+/* Container for messages */
+#messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    border-top: 1px solid #ccc;
+    background-color: #ffffff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Message styles */
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.message h2 {
+    font-size: large;
+    font-weight: bold;
+}
+
+.message.sent {
+    background-color: #dcf8c6;
+    text-align: right;
+    align-self: flex-end;
+}
+
+.message.received {
+    background-color: #ffffff;
+    text-align: left;
+    align-self: flex-start;
+}
+
+/* Form styles */
+#messageForm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #ffffff;
+    border-top: 1px solid #ccc;
+    position: absolute;
+    bottom: 2.5%;
+    width: 100%;
+}
+
+#messageForm input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+#messageForm button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    background-color: #34b7f1;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
