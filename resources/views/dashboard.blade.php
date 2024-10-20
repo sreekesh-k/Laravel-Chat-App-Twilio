@@ -11,10 +11,11 @@
         <button type="submit">Send</button>
     </form>
 
-    <div id="messages">
+    <div id="messages" style="background-color: aqua;">
         <!-- Messages will be displayed here -->
     </div>
 
+    <script src="https://sdk.twilio.com/js/conversations/v1.0/twilio-conversations.min.js"></script>
     <script>
         document.getElementById('messageForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Prevent the form from submitting normally
@@ -37,8 +38,8 @@
                     if (data.success) {
                         // Clear the input after sending the message
                         messageInput.value = '';
-                        // Optionally, refresh the messages displayed
-                        loadMessages(); // You will implement this function to refresh messages
+                        // Load messages again after sending
+                        loadMessages();
                     }
                 })
                 .catch(error => {
@@ -46,27 +47,65 @@
                 });
         });
 
-        function loadMessages() {
-            fetch('/messages')
+        let twilioConversation;
+
+        function connectToTwilio() {
+            fetch('/generate-token')
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data); // Check the structure in the console
-                    const messagesDiv = document.getElementById('messages');
-                    messagesDiv.innerHTML = ''; // Clear existing messages
+                    const accessToken = data.token; // Get the generated token
+                    const conversationSid =
+                        "{{ env('TWILIO_CHAT_SID') }}"; // Replace with your actual environment variable name
 
-                    data.forEach(msg => {
-                        const messageElement = document.createElement('div');
-                        messageElement.textContent =
-                        `${msg.author}: ${msg.body}`; // Make sure these keys match your data structure
-                        messagesDiv.appendChild(messageElement);
-                    });
+                    Twilio.Conversations.Client.create(accessToken)
+                        .then(client => {
+                            console.log('Twilio Client created:', client);
+                            return client.getConversationBySid(conversationSid);
+                        })
+                        .then(conversation => {
+                            twilioConversation = conversation; // Store the conversation reference
+                            // Load messages on initial load
+                            loadMessages();
+                            conversation.on('messageAdded', message => {
+                                displayMessage(message);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error connecting to Twilio:', error);
+                        });
                 })
                 .catch(error => {
-                    console.error('Error fetching messages:', error);
+                    console.error('Error fetching token:', error);
                 });
         }
 
-        setInterval(loadMessages, 5000);
-    </script>
+        function loadMessages() {
+            if (!twilioConversation) return; // Ensure the conversation is defined
 
+            twilioConversation.getMessages()
+                .then(messages => {
+                    const messagesDiv = document.getElementById('messages');
+                    messagesDiv.innerHTML = ''; // Clear existing messages
+
+                    messages.items.forEach(message => {
+                        displayMessage(message);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading messages:', error);
+                });
+        }
+
+
+        function displayMessage(message) {
+            const messagesDiv = document.getElementById('messages');
+            const messageElement = document.createElement('div');
+            messageElement.textContent = `${message.state.author}: ${message.state.body}`;
+            messagesDiv.appendChild(messageElement);
+        }
+
+        window.onload = function() {
+            connectToTwilio();
+        };
+    </script>
 </x-app-layout>

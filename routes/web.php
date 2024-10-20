@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Services\TwilioService;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\WebhookController;
+use App\Http\Controllers\TokenController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -50,7 +52,8 @@ Route::get('/delete-conversation/{sid}', function ($sid, TwilioService $twilioSe
 
 Route::post('/send-message', [MessageController::class, 'send'])->middleware('auth');
 Route::get('/messages', [MessageController::class, 'index'])->middleware('auth');
+Route::post('/webhooks/twilio', [WebhookController::class, 'handleWebhook']);
 
-
+Route::get('/generate-token', [TokenController::class, 'generateToken']);
 
 require __DIR__ . '/auth.php';
