@@ -8,9 +8,17 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Services\TwilioService;
 
 class AuthenticatedSessionController extends Controller
 {
+    protected $twilioService;
+
+    public function __construct(TwilioService $twilioService)
+    {
+        $this->twilioService = $twilioService;
+    }
+
     /**
      * Display the login view.
      */
@@ -27,6 +35,12 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        // Get the authenticated user
+        $user = Auth::user();
+
+        // Check and add the user to the conversation
+        $this->twilioService->checkAndAddParticipant(env('TWILIO_CHAT_SID'), $user->email);
 
         return redirect()->intended(route('dashboard', absolute: false));
     }

@@ -40,5 +40,32 @@ class TwilioService
             ->delete();
     }
 
+    public function addParticipant($conversationSid, $identity)
+    {
+        return $this->twilio->conversations->v1->services($this->serviceSid)
+            ->conversations($conversationSid)
+            ->participants
+            ->create([
+                'identity' => $identity,
+            ]);
+    }
+    public function checkAndAddParticipant($conversationSid, $identity)
+    {
+        // Check if the participant already exists
+        $participants = $this->twilio->conversations->v1->services($this->serviceSid)
+            ->conversations($conversationSid)
+            ->participants
+            ->read();
+
+        foreach ($participants as $participant) {
+            if ($participant->identity === $identity) {
+                // User is already a participant
+                return;
+            }
+        }
+
+        // Add the user as a participant
+        $this->addParticipant($conversationSid, $identity);
+    }
 
 }
