@@ -54,7 +54,7 @@
         let twilioConversation;
 
         function connectToTwilio() {
-            fetch("/generate-token")
+            fetch("/chat-app/generate-token")
                 .then((response) => response.json())
                 .then((data) => {
                     const accessToken = data.token; // Get the generated token
