@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Services\TwilioService;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,5 +17,17 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+
+Route::get('/test-twilio', function (TwilioService $twilioService) {
+    $client = $twilioService->getClient();
+
+    // Get list of conversations
+    $conversations = $client->conversations->v1->conversations->read();
+
+    return response()->json($conversations);
+});
+
 
 require __DIR__.'/auth.php';
