@@ -19,15 +19,13 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
 Route::get('/test-twilio', function (TwilioService $twilioService) {
-    $client = $twilioService->getClient();
-
-    // Get list of conversations
-    $conversations = $client->conversations->v1->conversations->read();
-
+    // Call the getConversations method instead of getClient
+    $conversations = $twilioService->getConversations();
+    
     return response()->json($conversations);
 });
+
 
 
 require __DIR__.'/auth.php';

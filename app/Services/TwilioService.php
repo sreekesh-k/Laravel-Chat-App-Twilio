@@ -7,6 +7,7 @@ use Twilio\Rest\Client;
 class TwilioService
 {
     protected $twilio;
+    protected $serviceSid;
 
     public function __construct()
     {
@@ -14,10 +15,13 @@ class TwilioService
             env('TWILIO_ACCOUNT_SID'), 
             env('TWILIO_AUTH_TOKEN')
         );
+        $this->serviceSid = env('TWILIO_SERVICE_SID');
     }
 
-    public function getClient()
+    public function getConversations()
     {
-        return $this->twilio;
+        return $this->twilio->conversations->v1->services($this->serviceSid)
+                     ->conversations
+                     ->read();
     }
 }
