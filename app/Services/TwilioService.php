@@ -70,12 +70,29 @@ class TwilioService
     public function sendMessage($conversationSid, $identity, $message)
     {
         $this->twilio->conversations->v1->services($this->serviceSid)
-                 ->conversations($conversationSid)
-                 ->messages
-                 ->create([
-                     'author' => $identity,
-                     'body' => $message,
-                 ]);
+            ->conversations($conversationSid)
+            ->messages
+            ->create([
+                'author' => $identity,
+                'body' => $message,
+            ]);
     }
-    
+    public function getMessages($conversationSid)
+    {
+        $messages = $this->twilio->conversations->v1->services($this->serviceSid)
+            ->conversations($conversationSid)
+            ->messages
+            ->read();
+
+        // Map the messages to return only the fields you need
+        return array_map(function ($message) {
+            return [
+                'author' => $message->author, // Author of the message
+                'body' => $message->body,     // Body of the message
+                'dateCreated' => $message->dateCreated->format('Y-m-d H:i:s'), // Optional: format the date
+            ];
+        }, $messages);
+    }
+
+
 }

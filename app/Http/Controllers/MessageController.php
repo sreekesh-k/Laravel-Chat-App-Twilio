@@ -22,7 +22,7 @@ class MessageController extends Controller
         ]);
 
         $user = Auth::user();
-        
+
         // Replace with your conversation SID
         $conversationSid = env('TWILIO_CHAT_SID'); // Update this with the correct Conversation SID
 
@@ -31,4 +31,15 @@ class MessageController extends Controller
 
         return response()->json(['success' => true]);
     }
+    public function index()
+    {
+        // Fetch messages from the Twilio conversation
+        // Replace with your conversation SID
+        $conversationSid = env('TWILIO_CHAT_SID'); // Update this with the correct Conversation SID
+
+        $messages = $this->twilioService->getMessages($conversationSid);
+
+        return response()->json($messages);
+    }
+
 }

@@ -49,6 +49,7 @@ Route::get('/delete-conversation/{sid}', function ($sid, TwilioService $twilioSe
 
 
 Route::post('/send-message', [MessageController::class, 'send'])->middleware('auth');
+Route::get('/messages', [MessageController::class, 'index'])->middleware('auth');
 
 
 
