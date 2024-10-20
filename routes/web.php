@@ -20,12 +20,32 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/test-twilio', function (TwilioService $twilioService) {
-    // Call the getConversations method instead of getClient
     $conversations = $twilioService->getConversations();
-    
-    return response()->json($conversations);
+    $data = [];
+    foreach ($conversations as $conversation) {
+        $data[] = [
+            'sid' => $conversation->sid,
+            'friendly_name' => $conversation->friendlyName,
+            'created_at' => $conversation->dateCreated->format('Y-m-d H:i:s'),
+        ];
+    }
+
+    return response()->json($data);
+});
+Route::get('/create-conversation', function (TwilioService $twilioService) {
+    $conversation = $twilioService->createConversation('chat-room');
+    return response()->json([
+        'sid' => $conversation->sid,
+        'friendly_name' => $conversation->friendlyName,
+        'created_at' => $conversation->dateCreated->format('Y-m-d H:i:s'),
+    ]);
+});
+
+Route::get('/delete-conversation/{sid}', function ($sid, TwilioService $twilioService) {
+    $twilioService->deleteConversation($sid);
+    return response()->json(['message' => 'Conversation deleted']);
 });
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

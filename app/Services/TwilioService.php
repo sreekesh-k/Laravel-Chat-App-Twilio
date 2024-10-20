@@ -12,7 +12,7 @@ class TwilioService
     public function __construct()
     {
         $this->twilio = new Client(
-            env('TWILIO_ACCOUNT_SID'), 
+            env('TWILIO_ACCOUNT_SID'),
             env('TWILIO_AUTH_TOKEN')
         );
         $this->serviceSid = env('TWILIO_SERVICE_SID');
@@ -21,7 +21,24 @@ class TwilioService
     public function getConversations()
     {
         return $this->twilio->conversations->v1->services($this->serviceSid)
-                     ->conversations
-                     ->read();
+            ->conversations
+            ->read();
     }
+    public function createConversation($friendlyName)
+    {
+        return $this->twilio->conversations->v1->services($this->serviceSid)
+            ->conversations
+            ->create([
+                'friendlyName' => $friendlyName
+            ]);
+    }
+
+    public function deleteConversation($conversationSid)
+    {
+        return $this->twilio->conversations->v1->services($this->serviceSid)
+            ->conversations($conversationSid)
+            ->delete();
+    }
+
+
 }
