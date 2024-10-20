@@ -67,5 +67,15 @@ class TwilioService
         // Add the user as a participant
         $this->addParticipant($conversationSid, $identity);
     }
-
+    public function sendMessage($conversationSid, $identity, $message)
+    {
+        $this->twilio->conversations->v1->services($this->serviceSid)
+                 ->conversations($conversationSid)
+                 ->messages
+                 ->create([
+                     'author' => $identity,
+                     'body' => $message,
+                 ]);
+    }
+    
 }

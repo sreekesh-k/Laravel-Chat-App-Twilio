@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Services\TwilioService;
+use App\Http\Controllers\MessageController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,6 +46,9 @@ Route::get('/delete-conversation/{sid}', function ($sid, TwilioService $twilioSe
     $twilioService->deleteConversation($sid);
     return response()->json(['message' => 'Conversation deleted']);
 });
+
+
+Route::post('/send-message', [MessageController::class, 'send'])->middleware('auth');
 
 
 
