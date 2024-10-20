@@ -1,66 +1,124 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Laravel + Twilio Chat Room Application
 
-## About Laravel
+This is a real-time chat room application built using Laravel and Twilio's Conversations API. Users can join the common chat room, send and receive messages, and see real-time updates from all participants in the room. The app utilizes Twilio to handle the message storage, retrieval, and delivery, ensuring a smooth and responsive chat experience.<a href="https://projects/sreekeshkprabhu.me/chat-app">Click here</a> and give it a try! 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Chat Room**: All users join a single, open chat room where they can participate in real-time conversations.
+- **Real-time messaging**: Messages are sent and received instantly using the Twilio Conversations API.
+- **User Roles**: Messages sent by the logged-in user appear on the right, while messages from other users appear on the left.
+- **AJAX Form Submission**: Messages are sent via an AJAX call without refreshing the page.
+- **Message History**: When the chat page loads, the previous messages in the conversation are automatically displayed.
+- **Responsive UI**: The chat interface is responsive and works on different screen sizes.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Preview
+<p align="center"><img src="screenshots/chat.png" width = 85% ></p>
 
-## Learning Laravel
+## Requirements
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP 8.0 or higher
+- Composer
+- Laravel 9.x
+- Twilio account with access to the Conversations API
+- MySQL
+- Nginx (for deployment)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 1. Clone the repository
 
-## Laravel Sponsors
+```bash
+git clone https://github.com/yourusername/your-chat-room-app.git
+cd your-chat-room-app
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 2. Install dependencies
 
-### Premium Partners
+```bash
+composer install
+npm install (Optional, only if you plan to use Mix)
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### 3. Configure Environment
 
-## Contributing
+Copy the `.env.example` file to `.env` and configure the following settings:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+cp .env.example .env
+```
 
-## Code of Conduct
+In `.env`:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Set your Twilio credentials:
 
-## Security Vulnerabilities
+```bash
+TWILIO_ACCOUNT_SID=your_twilio_account_sid
+TWILIO_AUTH_TOKEN=your_twilio_auth_token
+TWILIO_CHAT_SERVICE_SID=your_twilio_chat_service_sid
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Set your database connection settings:
 
-## License
+```bash
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database_name
+DB_USERNAME=your_database_user
+DB_PASSWORD=your_database_password
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 4. Generate Laravel App Key
+
+```bash
+php artisan key:generate
+```
+
+### 5. Run Migrations
+
+```bash
+php artisan migrate
+```
+
+### 6. Set Up Twilio
+
+Ensure your Twilio Conversations API is correctly configured, and make sure you have the correct conversation SID.
+
+### 7. Serve the Application
+
+```bash
+php artisan serve
+```
+
+Open your browser at `http://localhost:8000`.
+
+## Usage
+
+### Chat Room Functionality
+
+- All users are automatically added as participants to the chat room upon login.
+- Messages sent by the logged-in user appear on the right side of the chat interface, while messages from others appear on the left side.
+- Messages are displayed in real-time without the need to refresh the page.
+
+### Sending Messages
+
+1. Log in to the application.
+2. Type a message in the input field and click send.
+3. The message will appear in the chat room, and other users will see it in real-time.
+
+### File Structure
+
+- `public/js/main.js`: Contains the JavaScript for handling message sending and the Twilio client.
+- `public/css/style.css`: Contains the styles for the chat interface.
+- `resources/views/dashboard.blade.php`: The main chat view rendered using Blade.
+
+## Deployment
+
+For deployment, you will need:
+
+1. Nginx as the web server.
+2. MySQL as the database.
+3. Environment variables correctly set on the production server.
+4. A cloud hosting provider like DigitalOcean or AWS.
+
