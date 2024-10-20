@@ -34,7 +34,8 @@
 }
 
 .message.received {
-    background-color: #ffffff;
+    background-color: #535353;
+    color: white;
     text-align: left;
     align-self: flex-start;
 }
