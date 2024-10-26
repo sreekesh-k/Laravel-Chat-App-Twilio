@@ -31,6 +31,7 @@
     background-color: #dcf8c6;
     text-align: right;
     align-self: flex-end;
+    position: relative;
 }
 
 .message.received {
@@ -38,6 +39,7 @@
     color: white;
     text-align: left;
     align-self: flex-start;
+    position: relative;
 }
 
 /* Form styles */
