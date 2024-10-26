@@ -7,7 +7,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\TokenController;
 
-Route::prefix('chat-app')->group(function () {
+// Route::prefix('chat-app')->group(function () {
     // Home route for chat app
     Route::get('/', function () {
         return view('welcome'); // Make sure this view exists in resources/views
@@ -56,7 +56,7 @@ Route::prefix('chat-app')->group(function () {
     Route::post('/webhooks/twilio', [WebhookController::class, 'handleWebhook']);
 
     Route::get('/generate-token', [TokenController::class, 'generateToken']);
-});
+// });
 
 // Include auth routes
 require __DIR__ . '/auth.php';

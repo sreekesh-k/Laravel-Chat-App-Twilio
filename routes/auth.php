@@ -12,7 +12,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('chat-app')->group(function () {
+// Route::prefix('chat-app')->group(function () {
 
     Route::middleware('guest')->group(function () {
         Route::get('register', [RegisteredUserController::class, 'create'])
@@ -60,4 +60,4 @@ Route::prefix('chat-app')->group(function () {
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
             ->name('logout');
     });
-});
+// });

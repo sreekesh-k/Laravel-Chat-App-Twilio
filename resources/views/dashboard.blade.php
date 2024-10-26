@@ -27,7 +27,7 @@
             const messageInput = this.querySelector('input[name="message"]');
             const message = messageInput.value;
 
-            fetch("/chat-app/send-message", {
+            fetch("/send-message", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -54,7 +54,7 @@
         let twilioConversation;
 
         function connectToTwilio() {
-            fetch("/chat-app/generate-token")
+            fetch("/generate-token")
                 .then((response) => response.json())
                 .then((data) => {
                     const accessToken = data.token; // Get the generated token
