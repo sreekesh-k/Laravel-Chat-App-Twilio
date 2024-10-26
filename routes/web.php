@@ -11,7 +11,7 @@ Route::prefix('chat-app')->group(function () {
     // Home route for chat app
     Route::get('/', function () {
         return view('welcome'); // Make sure this view exists in resources/views
-    });
+    })->name('home');
 
     Route::get('/dashboard', function () {
         return view('dashboard');
