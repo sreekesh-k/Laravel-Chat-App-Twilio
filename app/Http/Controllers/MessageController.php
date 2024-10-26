@@ -27,7 +27,7 @@ class MessageController extends Controller
         $conversationSid = env('TWILIO_CHAT_SID'); // Update this with the correct Conversation SID
 
         // Send the message using the Twilio API
-        $this->twilioService->sendMessage($conversationSid, $user->email, $request->message);
+        $this->twilioService->sendMessage($conversationSid, $user->name, $request->message);
 
         return response()->json(['success' => true]);
     }
