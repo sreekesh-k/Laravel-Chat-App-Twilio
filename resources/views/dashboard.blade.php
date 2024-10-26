@@ -8,7 +8,7 @@
             This is a received message.
         </div>
     </div>
-    <form id="messageForm" action="/send-message" method="POST">
+    <form id="messageForm" action="/chat-app/send-message" method="POST">
         @csrf
         <input type="text" name="message" placeholder="Type your message" required>
         <button type="submit">Send</button>
@@ -22,7 +22,7 @@
             const messageInput = this.querySelector('input[name="message"]');
             const message = messageInput.value;
 
-            fetch("/send-message", {
+            fetch("/chat-app/send-message", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -45,7 +45,7 @@
         let twilioConversation;
 
         function connectToTwilio() {
-            fetch("/generate-token")
+            fetch("/chat-app/generate-token")
                 .then(response => response.json())
                 .then(data => {
                     const accessToken = data.token;
