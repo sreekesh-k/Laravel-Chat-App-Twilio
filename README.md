@@ -29,8 +29,7 @@ This is a real-time chat room application built using Laravel and Twilio's Conve
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/your-chat-room-app.git
-cd your-chat-room-app
+git clone https://github.com/sreekesh-k/Laravel-Chat-App-Twilio.git
 ```
 
 ### 2. Install dependencies
@@ -53,9 +52,12 @@ In `.env`:
 - Set your Twilio credentials:
 
 ```bash
-TWILIO_ACCOUNT_SID=your_twilio_account_sid
-TWILIO_AUTH_TOKEN=your_twilio_auth_token
-TWILIO_CHAT_SERVICE_SID=your_twilio_chat_service_sid
+TWILIO_ACCOUNT_SID=XXXXXXXXXXXXXXXXXXXXXXXXXXX
+TWILIO_AUTH_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXX
+TWILIO_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXX
+TWILIO_CHAT_SID=XXXXXXXXXXXXXXXXXXXXXXXXXXX
+TWILIO_SERVICE_SID=XXXXXXXXXXXXXXXXXXXXXXXXXXX
+TWILIO_API_SECRET=XXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 - Set your database connection settings:
