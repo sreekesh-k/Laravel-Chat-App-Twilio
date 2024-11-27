@@ -41,7 +41,7 @@ class MessageController extends Controller
         );
         $this->twilioService->sendMessage($conversationSid, $user->name, $request->message);
 
-        return response()->json(['success' => true]);
+        return response('OK', 200);
     }
 
     public function handle(Request $request)
