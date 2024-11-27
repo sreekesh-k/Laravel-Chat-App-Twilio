@@ -51,6 +51,7 @@ use App\Http\Controllers\TokenController;
         return response()->json(['message' => 'Conversation deleted']);
     });
 
+    Route::post('/sms', [MessageController::class, 'handle']);
     Route::post('/send-message', [MessageController::class, 'send'])->middleware('auth');
     Route::get('/messages', [MessageController::class, 'index'])->middleware('auth');
     Route::post('/webhooks/twilio', [WebhookController::class, 'handleWebhook']);
