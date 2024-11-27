@@ -54,7 +54,7 @@ class MessageController extends Controller
         
         $conversationSid = env('TWILIO_CHAT_SID');
         $this->twilioService->sendMessage($conversationSid, $from, $body);
-        return response()->json(['success' => true]);
+        return response()->json($request->all());
     }
 
 
