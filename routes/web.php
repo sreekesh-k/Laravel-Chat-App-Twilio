@@ -38,7 +38,7 @@ use App\Http\Controllers\TokenController;
     });
 
     Route::get('/create-conversation', function (TwilioService $twilioService) {
-        $conversation = $twilioService->createConversation('chat-room');
+        $conversation = $twilioService->createConversation('MSG-SMS-TEST');
         return response()->json([
             'sid' => $conversation->sid,
             'friendly_name' => $conversation->friendlyName,
