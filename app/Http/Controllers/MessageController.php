@@ -6,6 +6,8 @@ use App\Services\TwilioService;
 use Illuminate\Http\Request;
 use Twilio\Rest\Client;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 
 class MessageController extends Controller
 {
@@ -45,6 +47,7 @@ class MessageController extends Controller
     public function handle(Request $request)
     {
         // Log the incoming SMS details
+        Log::info('Incoming SMS request data:', $request->all());
         $from = $request->input('From'); // Sender's phone number
         $body = $request->input('Body'); // Message content
 
