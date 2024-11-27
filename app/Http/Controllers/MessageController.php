@@ -48,6 +48,7 @@ class MessageController extends Controller
         $from = $request->input('From'); // Sender's phone number
         $body = $request->input('Body'); // Message content
 
+        
         $conversationSid = env('TWILIO_CHAT_SID');
         $this->twilioService->sendMessage($conversationSid, $from, $body);
         return response()->json(['success' => true]);

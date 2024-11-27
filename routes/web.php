@@ -46,6 +46,8 @@ Route::prefix('chat-app')->group(function () {
         ]);
     });
 
+    Route::post('/sms', [MessageController::class, 'handle']);
+
     Route::get('/delete-conversation/{sid}', function ($sid, TwilioService $twilioService) {
         $twilioService->deleteConversation($sid);
         return response()->json(['message' => 'Conversation deleted']);
@@ -58,7 +60,7 @@ Route::prefix('chat-app')->group(function () {
     Route::get('/generate-token', [TokenController::class, 'generateToken']);
 });
 
-Route::post('/sms', [MessageController::class, 'handle']);
+
 
 // Include auth routes
 require __DIR__ . '/auth.php';
