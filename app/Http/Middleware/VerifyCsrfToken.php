@@ -12,7 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        '/sms', // Exclude this URL
+        'chat-app/sms', // Exclude this URL
 
     ];
 }
